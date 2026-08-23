@@ -1,9 +1,14 @@
 package dev.java.GestaoDePedido.Controller;
 
+import dev.java.GestaoDePedido.Controller.DTO.UsuarioDTO;
 import dev.java.GestaoDePedido.Entity.UsuarioEntity;
 import dev.java.GestaoDePedido.Service.UsuarioService;
+import dev.java.GestaoDePedido.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -12,15 +17,35 @@ import org.springframework.web.bind.annotation.*;
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
+    private final AuthenticationManager authenticationManager;
+    private final JwtUtil jwtUtil;
 
-    @GetMapping()
-    public String usuario(){
-        return "Apenas um teste da nossa controller.";
-    }
 
     @PostMapping
     public ResponseEntity<UsuarioEntity> salvarUsuario(@RequestBody UsuarioEntity usuario) {
         return ResponseEntity.ok(usuarioService.salvarUsuario(usuario));
+    }
+
+    @PostMapping("login")
+    public ResponseEntity<String> login(@RequestBody UsuarioDTO usuarioDTO) {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(usuarioDTO.getEmail(),usuarioDTO.getSenha())
+        );
+
+        return ResponseEntity.ok("Bearer " + jwtUtil.generateToken(authentication.getName()));
+
+    }
+
+    @GetMapping("/auth")
+    public ResponseEntity<UsuarioEntity> buscarUsuarioPorEmail(@RequestParam("email") String email){
+        return ResponseEntity.ok(usuarioService.buscarUsuarioPorEmail(email));
+    }
+
+
+    @DeleteMapping("/delete/{email}")
+    public ResponseEntity<Void> deletarUsuarioPorEmail(@PathVariable String email) {
+        usuarioService.deletarUsuarioPorEmail(email);
+        return ResponseEntity.ok().build();
     }
 
 }

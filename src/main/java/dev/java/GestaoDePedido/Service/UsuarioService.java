@@ -1,7 +1,10 @@
 package dev.java.GestaoDePedido.Service;
 
 import dev.java.GestaoDePedido.Entity.UsuarioEntity;
+import dev.java.GestaoDePedido.Exceptions.ConflictException;
+import dev.java.GestaoDePedido.Exceptions.ResourceNotFoundException;
 import dev.java.GestaoDePedido.Repository.UsuarioRepository;
+import dev.java.GestaoDePedido.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,6 +15,7 @@ public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
 
     public UsuarioEntity salvarUsuario(UsuarioEntity usuario) {
 
@@ -30,5 +34,13 @@ public class UsuarioService {
         return usuario;
     }
 
+    public UsuarioEntity buscarUsuarioPorEmail(String email){
+        return usuarioRepository.findByEmail(email).orElseThrow(
+                ()-> new ResourceNotFoundException("email não encontrado " + email));
+    }
+
+    public void deletarUsuarioPorEmail(String email){
+        usuarioRepository.deleteByEmail(email);
+    }
 
 }
