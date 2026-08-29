@@ -1,4 +1,4 @@
-package dev.java.GestaoDePedido.Exceptions;
+package dev.java.GestaoDePedido.Infrastructure.Exceptions;
 
 public class ResourceNotFoundException extends RuntimeException {
 
