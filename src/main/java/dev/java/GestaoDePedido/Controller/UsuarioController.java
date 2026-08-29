@@ -1,9 +1,9 @@
 package dev.java.GestaoDePedido.Controller;
 
-import dev.java.GestaoDePedido.Controller.DTO.UsuarioDTO;
-import dev.java.GestaoDePedido.Entity.UsuarioEntity;
-import dev.java.GestaoDePedido.Service.UsuarioService;
-import dev.java.GestaoDePedido.security.JwtUtil;
+import dev.java.GestaoDePedido.business.DTO.UsuarioDTO;
+import dev.java.GestaoDePedido.Infrastructure.Entity.UsuarioEntity;
+import dev.java.GestaoDePedido.business.Service.UsuarioService;
+import dev.java.GestaoDePedido.Infrastructure.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,7 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/usuario")
+@RequestMapping("/auth")
 @RequiredArgsConstructor
 public class UsuarioController {
 
@@ -21,12 +21,12 @@ public class UsuarioController {
     private final JwtUtil jwtUtil;
 
 
-    @PostMapping
-    public ResponseEntity<UsuarioEntity> salvarUsuario(@RequestBody UsuarioEntity usuario) {
-        return ResponseEntity.ok(usuarioService.salvarUsuario(usuario));
+    @PostMapping("/registro")
+    public ResponseEntity<UsuarioDTO> salvarUsuario(@RequestBody UsuarioDTO usuarioDTO) {
+        return ResponseEntity.ok(usuarioService.salvarUsuario(usuarioDTO));
     }
 
-    @PostMapping("login")
+    @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody UsuarioDTO usuarioDTO) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(usuarioDTO.getEmail(),usuarioDTO.getSenha())
@@ -37,7 +37,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/auth")
-    public ResponseEntity<UsuarioEntity> buscarUsuarioPorEmail(@RequestParam("email") String email){
+    public ResponseEntity<UsuarioDTO> buscarUsuarioPorEmail(@RequestParam("email") String email){
         return ResponseEntity.ok(usuarioService.buscarUsuarioPorEmail(email));
     }
 
