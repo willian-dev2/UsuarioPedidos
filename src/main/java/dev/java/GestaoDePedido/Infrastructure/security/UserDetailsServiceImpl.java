@@ -1,8 +1,8 @@
-package dev.java.GestaoDePedido.security;
+package dev.java.GestaoDePedido.Infrastructure.security;
 
 
-import dev.java.GestaoDePedido.Entity.UsuarioEntity;
-import dev.java.GestaoDePedido.Repository.UsuarioRepository;
+import dev.java.GestaoDePedido.Infrastructure.Entity.UsuarioEntity;
+import dev.java.GestaoDePedido.Infrastructure.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

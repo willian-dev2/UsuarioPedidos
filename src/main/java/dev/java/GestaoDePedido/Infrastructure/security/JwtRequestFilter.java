@@ -1,4 +1,4 @@
-package dev.java.GestaoDePedido.security;
+package dev.java.GestaoDePedido.Infrastructure.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

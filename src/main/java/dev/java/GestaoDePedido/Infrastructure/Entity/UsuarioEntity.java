@@ -1,10 +1,11 @@
-package dev.java.GestaoDePedido.Entity;
+package dev.java.GestaoDePedido.Infrastructure.Entity;
 
+import dev.java.GestaoDePedido.Infrastructure.enums.Role;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -12,6 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "usuarios")
+@Builder
 public class UsuarioEntity {
 
     @Id
@@ -23,5 +25,8 @@ public class UsuarioEntity {
     private String email;
     @Column(name = "senha")
     private String senha;
+    @CreationTimestamp
+    @Column(name = "data/hora")
+    private LocalDateTime dateTime;
 
 }

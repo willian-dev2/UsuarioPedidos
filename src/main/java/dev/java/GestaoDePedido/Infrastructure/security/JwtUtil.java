@@ -1,4 +1,4 @@
-package dev.java.GestaoDePedido.security;
+package dev.java.GestaoDePedido.Infrastructure.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
