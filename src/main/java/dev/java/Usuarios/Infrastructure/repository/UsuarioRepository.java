@@ -1,6 +1,6 @@
-package dev.java.GestaoDePedido.Infrastructure.repository;
+package dev.java.Usuarios.Infrastructure.repository;
 
-import dev.java.GestaoDePedido.Infrastructure.Entity.UsuarioEntity;
+import dev.java.Usuarios.Infrastructure.Entity.UsuarioEntity;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

@@ -1,8 +1,8 @@
-package dev.java.GestaoDePedido.Infrastructure.security;
+package dev.java.Usuarios.Infrastructure.security;
 
 
-import dev.java.GestaoDePedido.Infrastructure.Entity.UsuarioEntity;
-import dev.java.GestaoDePedido.Infrastructure.repository.UsuarioRepository;
+import dev.java.Usuarios.Infrastructure.Entity.UsuarioEntity;
+import dev.java.Usuarios.Infrastructure.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -27,6 +27,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return org.springframework.security.core.userdetails.User
                 .withUsername(usuario.getEmail()) // Define o nome de usuário como o e-mail
                 .password(usuario.getSenha()) // Define a senha do usuário
+                .roles(usuario.getRole().name()) // Define role do usuario
                 .build(); // Constrói o objeto UserDetails
     }
 }

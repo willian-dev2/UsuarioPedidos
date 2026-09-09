@@ -1,5 +1,6 @@
-package dev.java.GestaoDePedido.Infrastructure.security;
+package dev.java.Usuarios.Infrastructure.security;
 
+import dev.java.Usuarios.Infrastructure.enums.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -18,9 +19,10 @@ public class JwtUtil {
 
 
     // Gera um token JWT com o nome de usuário e validade de 1 hora
-    public String generateToken(String username) {
+    public String generateToken(String username, Role role) {
         return Jwts.builder()
                 .setSubject(username) // Define o nome de usuário como o assunto do token
+                .claim("role", role.name()) // Define a role do usuario como assunto do token
                 .setIssuedAt(new Date()) // Define a data e hora de emissão do token
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // Define a data e hora de expiração (1 hora a partir da emissão)
                 .signWith(Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8)), SignatureAlgorithm.HS256) // Converte a chave secreta em bytes e assina o token com ela
@@ -40,6 +42,12 @@ public class JwtUtil {
     public String extractUsername(String token) {
         // Obtém o assunto (nome de usuário) das claims do token
         return extractClaims(token).getSubject();
+    }
+
+    // extrai o role de usuario do token JWT
+    public String extractRole(String token) {
+        // Obtém o assunto (Role do usuário) das claims do token
+        return extractClaims(token).get("role", String.class);
     }
 
     // Verifica se o token JWT está expirado
