@@ -1,4 +1,4 @@
-package dev.java.GestaoDePedido.Infrastructure.Exceptions;
+package dev.java.Usuarios.Infrastructure.Exceptions;
 
 public class ConflictException extends RuntimeException {
     public ConflictException(String message) {

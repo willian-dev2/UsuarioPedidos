@@ -1,6 +1,6 @@
-package dev.java.GestaoDePedido.Infrastructure.Entity;
+package dev.java.Usuarios.Infrastructure.Entity;
 
-import dev.java.GestaoDePedido.Infrastructure.enums.Role;
+import dev.java.Usuarios.Infrastructure.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -28,5 +28,8 @@ public class UsuarioEntity {
     @CreationTimestamp
     @Column(name = "data/hora")
     private LocalDateTime dateTime;
+    @Column(name = "Roles")
+    @Enumerated(EnumType.STRING) // persiste como uma String no banco de dados
+    private Role role;
 
 }

@@ -1,7 +1,7 @@
-package dev.java.GestaoDePedido.business.Converter;
+package dev.java.Usuarios.business.Converter;
 
-import dev.java.GestaoDePedido.Infrastructure.Entity.UsuarioEntity;
-import dev.java.GestaoDePedido.business.DTO.UsuarioDTO;
+import dev.java.Usuarios.Infrastructure.Entity.UsuarioEntity;
+import dev.java.Usuarios.business.DTO.UsuarioDTO;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,6 +13,7 @@ public class UsuarioConverter {
                 .nome(usuarioDTO.getNome())
                 .email(usuarioDTO.getEmail())
                 .senha(usuarioDTO.getSenha())
+                .role(usuarioDTO.getRole())
                 .dateTime(usuarioDTO.getDateTime())
                 .build();
     }
@@ -23,6 +24,7 @@ public class UsuarioConverter {
                 .nome(entity.getNome())
                 .email(entity.getEmail())
                 .senha("**********") // usuário irá ver essa senha
+                .role(entity.getRole())
                 .dateTime(entity.getDateTime())
                 .build();
     }
@@ -32,6 +34,7 @@ public class UsuarioConverter {
         return UsuarioEntity.builder()
                 .nome(dto.getNome() != null ? dto.getNome() : entity.getNome())
                 .id(entity.getId())
+                .role(entity.getRole())
                 .senha(dto.getSenha() != null ? dto.getSenha() : entity.getSenha())
                 .email(dto.getEmail() != null ? dto.getEmail() : entity.getEmail())
                 .build();

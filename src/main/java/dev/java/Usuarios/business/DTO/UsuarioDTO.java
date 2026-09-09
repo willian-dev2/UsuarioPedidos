@@ -1,5 +1,6 @@
-package dev.java.GestaoDePedido.business.DTO;
+package dev.java.Usuarios.business.DTO;
 
+import dev.java.Usuarios.Infrastructure.enums.Role;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -14,6 +15,7 @@ public class UsuarioDTO {
     private String nome;
     private String email;
     private String senha;
+    private Role role;
     private LocalDateTime dateTime;
 
 }
